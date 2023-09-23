@@ -23,6 +23,7 @@ RUN echo -e "https://dl-cdn.alpinelinux.org/alpine/edge/testing\nhttps://dl-cdn.
 	build-base \
 	wget \
 	rsync \
+	epson-inkjet-printer-escpr \
 	&& pip3 --no-cache-dir install --upgrade pip \
 	&& pip3 install pycups \
 	&& rm -rf /var/cache/apk/*
