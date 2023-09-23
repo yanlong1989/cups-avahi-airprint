@@ -1,7 +1,8 @@
 FROM alpine:3.18
 
 # Install the packages we need. Avahi will be included
-RUN echo -e "https://dl-cdn.alpinelinux.org/alpine/edge/testing\nhttps://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories &&\
+RUN set -eux && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN echo -e "https://mirrors.ustc.edu.cn/alpine/edge/testing\nhttps://mirrors.ustc.edu.cn/alpine/edge/main" >> /etc/apk/repositories &&\
 	apk add --update cups \
 	cups-libs \
 	cups-pdf \
@@ -24,6 +25,7 @@ RUN echo -e "https://dl-cdn.alpinelinux.org/alpine/edge/testing\nhttps://dl-cdn.
 	wget \
 	rsync \
 	epson-inkjet-printer-escpr \
+	&& pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
 	&& pip3 --no-cache-dir install --upgrade pip \
 	&& pip3 install pycups \
 	&& rm -rf /var/cache/apk/*
